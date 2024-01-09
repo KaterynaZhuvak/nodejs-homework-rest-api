@@ -7,12 +7,14 @@ const { updateFavoriteSchema } = require("../models/contact");
 const ctrlWrapper = require("../helpers/ctrlWrapper");
 
 const getAll = async (req, res, next) => {
-  const result = await Contact.find({}, "-createdAt -updatedAt");
+  const result = await Contact.find();
   res.json(result);
 };
 
 const getById = async (req, res, next) => {
-  const result = await Contact.findById(isValidId);
+  const { id } = req.params;
+  // const result = await Contact.findOne({ _id: id });
+  const result = await Contact.findById(id);
   if (!result) {
     throw HttpError(404, "Not Found");
   }

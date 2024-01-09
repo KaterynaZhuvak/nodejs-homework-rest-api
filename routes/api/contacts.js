@@ -1,4 +1,5 @@
 const express = require("express");
+const isValidId = require("../../middleWares/isValidId");
 const router = express.Router();
 const {
   getAll,
@@ -11,7 +12,7 @@ const {
 
 router.get("/", getAll);
 
-router.get("/:id", getById);
+router.get("/:id", isValidId, getById);
 
 router.post("/", add);
 

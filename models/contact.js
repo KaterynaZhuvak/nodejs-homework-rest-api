@@ -15,7 +15,7 @@ const contactSchema = new Schema(
       required: true,
     },
     phone: {
-      type: number,
+      type: String,
       match: numberPattern,
       required: true,
     },

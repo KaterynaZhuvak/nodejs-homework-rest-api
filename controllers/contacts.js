@@ -1,7 +1,6 @@
 const { Contact } = require("../models/contact");
 const { HttpError } = require("../helpers/index");
 const { addSchema } = require("../models/contact");
-const isValidId = require("../middleWares/isValidId");
 const { updateFavoriteSchema } = require("../models/contact");
 
 const ctrlWrapper = require("../helpers/ctrlWrapper");
@@ -26,12 +25,13 @@ const add = async (req, res, next) => {
   if (error) {
     throw HttpError(400, error.message);
   }
-  const result = await Contacts.create(req.body);
+  const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
 
 const deleteById = async (req, res, next) => {
-  const result = await Contacts.findByIdAndRemove(isValidId);
+  const { id } = req.params;
+  const result = await Contact.findByIdAndDelete(id);
   if (!result) {
     throw HttpError(404, "Not Found");
   }
@@ -46,7 +46,8 @@ const updateById = async (req, res, next) => {
   if (error) {
     throw HttpError(400, error.message);
   }
-  const result = await Contacts.findByIdAndUpdate(isValidId, req.body, {
+  const { id } = req.params;
+  const result = await Contact.findByIdAndUpdate(id, req.body, {
     new: true,
   });
   if (!result) {
@@ -60,7 +61,8 @@ const updateFavorites = async (req, res, next) => {
   if (error) {
     throw HttpError(400, error.message);
   }
-  const result = await Contacts.findByIdAndUpdate(isValidId, req.body, {
+  const { id } = req.params;
+  const result = await Contact.findByIdAndUpdate(id, req.body, {
     new: true,
   });
   if (!result) {

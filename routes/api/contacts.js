@@ -16,10 +16,10 @@ router.get("/:id", isValidId, getById);
 
 router.post("/", add);
 
-router.delete("/:id", deleteById);
+router.delete("/:id", isValidId, deleteById);
 
-router.put("/:id", updateById);
+router.put("/:id", isValidId, updateById);
 
-router.patch("/:id/favorite", updateFavorites);
+router.patch("/:id/favorite", isValidId, updateFavorites);
 
 module.exports = router;

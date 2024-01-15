@@ -1,9 +1,7 @@
 const { Contact } = require("../models/contact");
-const { HttpError } = require("../helpers/index");
+const { HttpError, ctrlWrapper } = require("../helpers/index");
 const { addSchema } = require("../models/contact");
 const { updateFavoriteSchema } = require("../models/contact");
-
-const ctrlWrapper = require("../helpers/ctrlWrapper");
 
 const getAll = async (req, res, next) => {
   const result = await Contact.find();

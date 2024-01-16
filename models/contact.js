@@ -52,5 +52,3 @@ module.exports = {
   addSchema,
   updateFavoriteSchema,
 };
-
-// phone: Joi.string().pattern(numberPattern).required(),

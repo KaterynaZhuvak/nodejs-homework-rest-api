@@ -2,11 +2,10 @@ const { User } = require("../models/user");
 const { HttpError, ctrlWrapper } = require("../helpers/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 const { updateSubscriptionSchema } = require("../models/user");
 
+require("dotenv").config();
 const { SECRET_KEY } = process.env;
-// const SECRET_KEY = 'iqra[xtPSI%OMS<]C2O/R(|:zDl&?"';
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -60,7 +59,7 @@ const logout = async (req, res) => {
 const updateSubscription = async (req, res, next) => {
   const { error } = updateSubscriptionSchema.validate(req.body);
   if (error) {
-    throw HttpError(400);
+    throw HttpError(400, error.message);
   }
 
   const { _id } = req.user;
@@ -69,7 +68,7 @@ const updateSubscription = async (req, res, next) => {
     new: true,
   });
   if (!result) {
-    throw HttpError(404);
+    throw HttpError(404, "Not Found");
   }
   res.json(result);
 };

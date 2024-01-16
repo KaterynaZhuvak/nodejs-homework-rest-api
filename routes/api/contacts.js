@@ -9,7 +9,6 @@ const {
   deleteById,
   updateById,
   updateFavorites,
-  updateSubscription,
 } = require("../../controllers/contacts");
 
 router.get("/", authenticate, getAll);

@@ -4,7 +4,6 @@ const { User } = require("../models/user");
 require("dotenv").config();
 
 const { SECRET_KEY } = process.env;
-// const SECRET_KEY = 'iqra[xtPSI%OMS<]C2O/R(|:zDl&?"';
 
 const authenticate = async (req, res, next) => {
   const { authorization = "" } = req.headers;

@@ -28,7 +28,10 @@ const add = async (req, res, next) => {
   const { _id: owner } = req.user;
   const { error } = addSchema.validate(req.body);
   if (error) {
-    throw HttpError(400, error.message);
+    throw HttpError(
+      400,
+      "Please, Make sure your data is in the correct format email(email@mail.com), number((000) 000-0000)!"
+    );
   }
   const result = await Contact.create({ ...req.body, owner });
   res.status(201).json(result);
@@ -40,7 +43,6 @@ const deleteById = async (req, res, next) => {
   if (!result) {
     throw HttpError(404, "Not Found");
   }
-  // res.status(200).send(); (NO CONTENT тіло не передасться)
   res.json({
     message: "Delete successfully",
   });

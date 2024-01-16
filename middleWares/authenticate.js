@@ -1,8 +1,10 @@
 const { HttpError } = require("../helpers/index");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models/user");
-// const { SECRET_KEY } = process.env;
-const SECRET_KEY = 'iqra[xtPSI%OMS<]C2O/R(|:zDl&?"';
+require("dotenv").config();
+
+const { SECRET_KEY } = process.env;
+// const SECRET_KEY = 'iqra[xtPSI%OMS<]C2O/R(|:zDl&?"';
 
 const authenticate = async (req, res, next) => {
   const { authorization = "" } = req.headers;

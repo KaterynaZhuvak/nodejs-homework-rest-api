@@ -47,6 +47,10 @@ const addSchema = Joi.object({
   favorite: Joi.boolean(),
 });
 
-module.exports = { Contact, addSchema, updateFavoriteSchema };
+module.exports = {
+  Contact,
+  addSchema,
+  updateFavoriteSchema,
+};
 
 // phone: Joi.string().pattern(numberPattern).required(),

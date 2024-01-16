@@ -2,9 +2,11 @@ const { User } = require("../models/user");
 const { HttpError, ctrlWrapper } = require("../helpers/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { updateSubscriptionSchema } = require("../models/user");
 
-// const { SECRET_KEY } = process.env;
-const SECRET_KEY = 'iqra[xtPSI%OMS<]C2O/R(|:zDl&?"';
+const { SECRET_KEY } = process.env;
+// const SECRET_KEY = 'iqra[xtPSI%OMS<]C2O/R(|:zDl&?"';
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -55,9 +57,27 @@ const logout = async (req, res) => {
   res.json({ message: "Logout success!" });
 };
 
+const updateSubscription = async (req, res, next) => {
+  const { error } = updateSubscriptionSchema.validate(req.body);
+  if (error) {
+    throw HttpError(400);
+  }
+
+  const { _id } = req.user;
+
+  const result = await User.findByIdAndUpdate(_id, req.body, {
+    new: true,
+  });
+  if (!result) {
+    throw HttpError(404);
+  }
+  res.json(result);
+};
+
 module.exports = {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
+  updateSubscription: ctrlWrapper(updateSubscription),
 };

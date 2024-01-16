@@ -3,7 +3,8 @@ const { HttpError, ctrlWrapper } = require("../helpers/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { SECRET_KEY } = process.env;
+// const { SECRET_KEY } = process.env;
+const SECRET_KEY = 'iqra[xtPSI%OMS<]C2O/R(|:zDl&?"';
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -37,8 +38,26 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+  await User.findByIdAndUpdate(user._id, { token });
 
   res.json({ token });
 };
 
-module.exports = { register: ctrlWrapper(register), login: ctrlWrapper(login) };
+const getCurrent = async (req, res) => {
+  const { email, name } = req.body;
+  res.json({ email, name });
+};
+
+const logout = async (req, res) => {
+  const { _id } = req.user;
+  await User.findByIdAndUpdate(_id, { token: "" });
+
+  res.json({ message: "Logout success!" });
+};
+
+module.exports = {
+  register: ctrlWrapper(register),
+  login: ctrlWrapper(login),
+  getCurrent: ctrlWrapper(getCurrent),
+  logout: ctrlWrapper(logout),
+};

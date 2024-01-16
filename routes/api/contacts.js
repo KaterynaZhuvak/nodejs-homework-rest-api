@@ -1,5 +1,6 @@
 const express = require("express");
 const isValidId = require("../../middleWares/isValidId");
+const authenticate = require("../../middleWares/authenticate");
 const router = express.Router();
 const {
   getAll,
@@ -10,16 +11,16 @@ const {
   updateFavorites,
 } = require("../../controllers/contacts");
 
-router.get("/", getAll);
+router.get("/", authenticate, getAll);
 
-router.get("/:id", isValidId, getById);
+router.get("/:id", authenticate, isValidId, getById);
 
-router.post("/", add);
+router.post("/", authenticate, add);
 
-router.delete("/:id", isValidId, deleteById);
+router.delete("/:id", authenticate, isValidId, deleteById);
 
-router.put("/:id", isValidId, updateById);
+router.put("/:id", authenticate, isValidId, updateById);
 
-router.patch("/:id/favorite", isValidId, updateFavorites);
+router.patch("/:id/favorite", authenticate, isValidId, updateFavorites);
 
 module.exports = router;

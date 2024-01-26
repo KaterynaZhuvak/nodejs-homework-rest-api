@@ -6,6 +6,7 @@ const { updateSubscriptionSchema } = require("../models/user");
 const gravatar = require("gravatar");
 const path = require("path");
 const fs = require("fs/promises");
+const { schemas } = require("../models/user");
 
 require("dotenv").config();
 const { SECRET_KEY } = process.env;
@@ -13,6 +14,11 @@ const { SECRET_KEY } = process.env;
 const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const register = async (req, res) => {
+  const { error } = schemas.registerSchema.validate(req.body);
+  if (error) {
+    throw HttpError(400, error.message);
+  }
+
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
@@ -34,6 +40,11 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  const { error } = schemas.loginSchema.validate(req.body);
+  if (error) {
+    throw HttpError(400, error.message);
+  }
+
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {

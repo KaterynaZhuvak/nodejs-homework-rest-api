@@ -6,9 +6,6 @@ const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-    },
     email: {
       type: String,
       match: emailRegex,

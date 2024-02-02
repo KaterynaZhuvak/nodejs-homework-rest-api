@@ -91,7 +91,7 @@ const resendVerifyEmail = async (req, res) => {
 
   await sendEmail(verifyEmail);
 
-  res.json({'Verification email sent'});
+  res.json({ message: "Verification email sent" });
 };
 
 const login = async (req, res) => {
@@ -134,7 +134,7 @@ const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
 
-  res.json({ message: "Logout success!" });
+  res.status(204).json({ message: "Logout success!" });
 };
 
 const updateSubscription = async (req, res, next) => {

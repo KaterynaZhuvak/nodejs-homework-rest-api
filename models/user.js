@@ -66,8 +66,9 @@ const updateSubscriptionSchema = Joi.object({
 const schemas = {
   registerSchema,
   loginSchema,
+  emailSchema,
 };
 
 const User = model("user", userSchema);
 
-module.exports = { schemas, User, updateSubscriptionSchema, emailSchema };
+module.exports = { schemas, User, updateSubscriptionSchema };

@@ -67,8 +67,9 @@ const schemas = {
   registerSchema,
   loginSchema,
   emailSchema,
+  updateSubscriptionSchema,
 };
 
 const User = model("user", userSchema);
 
-module.exports = { schemas, User, updateSubscriptionSchema };
+module.exports = { schemas, User };

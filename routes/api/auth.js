@@ -1,6 +1,8 @@
 const express = require("express");
 const {
   register,
+  verifyEmail,
+  resendVerifyEmail,
   login,
   getCurrent,
   logout,
@@ -13,6 +15,10 @@ const upload = require("../../middleWares/upload");
 const router = express.Router();
 
 router.post("/register", register);
+
+router.get("/verify/:verificationToken", verifyEmail);
+
+router.post("/verify", resendVerifyEmail);
 
 router.post("/login", login);
 
